@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="xlsStyles.css">
+<script lang="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script lang="javascript" src="shim.js"></script>
+<script lang="javascript" src="ExcelToJsDate.js"></script>
+<script lang="javascript" src="jszip.js"></script>
+<script lang="javascript" src="xlsx.js"></script>
+<script lang="javascript" src="ods.js"></script>
+<script lang="javascript" src="FileSaver.js"></script>
+<!-- <script lang="javascript" src="anime.js"></script> -->
+<script lang="javascript" src="xls_worker.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="drag-and-drop">Drag and Drop your xls. file here. 1 Sheet processing only for now.</div>
+		<div id="textarea">
+			<div>
+				<div class="getter">
+				<div class="shim">I. Get items collection:</div>
+					<div class="shim">
+						<input value="Items Collection Name" class="items_collection_name"></input>
+					</div>	
+					<div class="shim">Parameters: ['<b>Workbook Name</b>', '<b>Column Name</b>']</div>
+					<div class="shim">
+					<textarea class="getter">[Workbook Name, Column Name]</textarea>
+					</div>
+					<div>
+						<button class="go-getter">Get the Items</button>
+					</div>
+					<div id="add_getter">
+						<button>Add Another Getter</button>
+					</div>
+				</div>
+				<div class="combinator">
+				<div class="shim">II. Simple-combine items to new array:</div>
+					<div class="shim">NB! Array1 and Array2 have either the same lenght, or the resulting array have Array1.length!</div>
+					<div class="shim">NB! Array1 and Array2 must be existing arrays (from the Getters above).</div>
+					<div class="shim">
+					<textarea class="combinator">[New Array Name to create, Array1, Array2]</textarea>
+					</div>
+					<div>
+						<button class="combinator-do">Simple-combine the Items</button>
+					</div>
+					<div id="add_combinator">
+						<button>Add Another Combinator</button>
+					</div>
+				</div>
+				<div class="complex combinator">
+				<div class="shim">II-i. Complex-combine items to form a new array:</div>
+					<div class="shim">NB! Specify unique name for the Auxiliary Array!</div>
+					<div class="shim">NB! Array1 and Array2 must be existing arrays (from the Getters above).</div>
+					<div class="shim">NB! Resulting Array will have the length of Array1.length * Array2.length!</div>
+					<div class="shim">
+						<b>Create Auxiliary Array, <br/>
+							Foreach Array1-><br/>
+							Auxiliary Array.push(each Array1[i] + ALL Items in Array2)<br/></b>
+					</div>
+					<div class="shim">
+							(1) Specify Array1 Name (must be existing) -> 'Name'<br/><br/>
+							<input value="[Array1 Name]" class="what1"></input>	
+					</div>
+					<div class="shim">
+							(2) Specify Array2 Name (must be existing) -> 'Name'<br/><br/>
+							<input value="[Array2 Name]" class="what2"></input>	
+					</div>
+					<div class="shim">
+							(3) Specify Auxiliary Array Name to create -> 'Name'<br/><br/>
+							<input value="Auxiliary Array Name" class="aux_array"></input>
+					</div>
+					<div>
+						<button class="complex combinator-do">Complex-combine the Items</button>
+					</div>
+					<div id="complex_add_combinator">
+						<button>Add Another Complex Combinator</button>
+					</div>
+				</div>
+				<div class="simple-writeable_iterator">
+				<div class="shim">III. Simple Iteration to write:</div>
+					<div class="shim">
+						(1) WHAT (Existing Array)->
+					</div>
+					<div class="shim">
+						<input style="width: 180px;" value="[Source Items Array Name]" class="what"></input>
+					</div>
+					<div class="shim">(2) Write WHAT -> WHERE [Worksheet Name, Column Name]</div>
+						<div class="shim">
+							<textarea class="write_what_where">[Worksheet Name, Targeted Range [Worksheet Name, Column Name], Array Name]</textarea>
+						</div>
+					<div id="process-simple-writable-iterator">
+						<button class="simple_write_do">Process writable iterator</button>
+					</div>
+					<div id="add_simple_writable_iterator">
+						<button>Add Simple Writable Iterator</button>
+					</div>
+				</div>
+				<div class="complex-writeable_iterator">
+				<div class="shim">III. Iterate to write:</div>
+					<div class="shim">
+						Foreach WHAT1->
+					</div>
+					<div class="shim">
+						<textarea class="what">[Source Items Array Name]</textarea>
+					</div>
+					<div class="shim">
+						<div class="shim">
+							(1) Create a subRoutine: <b>Auxiliary Array[create -> 'Name']<br/><br/>
+							<input value="Auxiliary Array Name" class="aux_array"></input>.push('copy of each WHAT1[i])</b><br/><br/>
+							FOR how many times:<br/><br/>(i.e., assign the length of 'Auxiliary Array' by writing the existing Array Name before '.length') -> [Items Array.length]
+							<input value="Auxiliary Array.length" class="items_array_length"></input>
+						</div>
+					</div>
+					<div class="shim">(2) Write Auxiliary Array ['Name'] <br/><br/>WHERE [Worksheet Name, Column Name]</div>
+						<div class="shim">
+							<textarea class="write_auxiliary_array">[Worksheet Name, Targeted Range [Worksheet Name, Column Name], Array Name]</textarea>
+						</div>
+					<div id="process-writable-iterator">
+						<button class="iterate_to_write_do">Process writable iterator</button>
+					</div>
+					<div id="add_complex_writable_iterator">
+						<button>Add Complex Writable Iterator</button>
+					</div>
+				</div>
+				
+				<div class="writable">
+				<div class="shim">IV. Process the Workbook:</div>
+						<button id="process_wb">Process the Workbook!</button>
+						<button id="clear_wb">Clear the Workbook!</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</body>
+</html>
